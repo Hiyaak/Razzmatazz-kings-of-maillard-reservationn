@@ -89,7 +89,7 @@ const BookingPage = () => {
             {/* Calendar */}
             <div className='flex-1 min-w-[300px]'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Select Date
+                Select Date1
               </label>
               <Calendar
                 selectedDate={selectedDay}
