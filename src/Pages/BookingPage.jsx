@@ -89,7 +89,7 @@ const BookingPage = () => {
             {/* Calendar */}
             <div className='flex-1 min-w-[300px]'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Select Date1
+                Select Date
               </label>
               <Calendar
                 selectedDate={selectedDay}
@@ -103,8 +103,8 @@ const BookingPage = () => {
 
           {/* ---- Time Slots ---- */}
           <div className='bg-white rounded-2xl shadow-sm p-6'>
-            <h2 className='text-lg font-medium text-gray-800 mb-4'>
-              Choose Your Time Slot
+            <h2 className='text-center font-medium text-gray-700 mb-4'>
+              Our commitment to your safety
             </h2>
             <TimeSlots slots={slots} onSelect={handleSlotClick} />
           </div>
