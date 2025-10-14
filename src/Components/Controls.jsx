@@ -35,7 +35,7 @@ export default function Controls({ guests, setGuests }) {
         >
           <div className="flex-1">
             <div className="text-base font-medium text-gray-900">
-              {guests} {guests === 1 ? 'guest' : 'guests'}
+              {guests} {guests === 1 ? 'guest' : ''}
             </div>
           </div>
           <svg
@@ -72,7 +72,7 @@ export default function Controls({ guests, setGuests }) {
                       setGuestsOpen(false);
                     }}
                   >
-                    {val} {val === 1 ? 'guest' : 'guests'}
+                    {val} {val === 1 ? '' : ''}
                   </div>
                 );
               })}
