@@ -4,7 +4,7 @@ import Header from '../Components/Header'
 import Sidebar from '../Components/Sidebar'
 import TimeSlots from '../Components/TimeSlots'
 import Calendar from '../Components/Calendar'
-import Controls from '../components/Controls'
+import Controls from '../Components/Controls'
 
 const BookingPage = () => {
   const navigate = useNavigate()
@@ -12,6 +12,7 @@ const BookingPage = () => {
   // ---- State Management ----
   const [guests, setGuests] = useState(2)
   const [selectedDay, setSelectedDay] = useState(null)
+  const [bookedSlots, setBookedSlots] = useState([])
 
   // Set default date to today
   useEffect(() => {
@@ -48,10 +49,27 @@ const BookingPage = () => {
     '10:30 PM'
   ]
 
+  // ---- Check if slot is booked ----
+  const isSlotBooked = (slot) => {
+    return bookedSlots.some(booked => 
+      booked.date.day === selectedDay.day &&
+      booked.date.month === selectedDay.month &&
+      booked.date.year === selectedDay.year &&
+      booked.time === slot &&
+      booked.guests >= 20
+    )
+  }
+
   // ---- Slot Click Handler ----
   const handleSlotClick = slot => {
     if (!selectedDay) {
       alert('Please select a date before choosing a time slot.')
+      return
+    }
+
+    // Check if the slot is already booked for 20+ guests
+    if (isSlotBooked(slot)) {
+      alert(`Sorry, the time slot ${slot} on ${selectedDay.month}/${selectedDay.day}/${selectedDay.year} is already fully booked for 20 guests. Please select another time slot.`)
       return
     }
 
@@ -60,6 +78,13 @@ const BookingPage = () => {
       selectedDate: selectedDay,
       numberOfGuests: guests
     })
+
+    // Add to booked slots (you might want to move this to a backend in real app)
+    setBookedSlots(prev => [...prev, {
+      time: slot,
+      date: selectedDay,
+      guests: guests
+    }])
 
     navigate('/userinfo', {
       state: {
@@ -106,7 +131,12 @@ const BookingPage = () => {
             <h2 className='text-center font-medium text-gray-700 mb-4'>
               Our commitment to your safety
             </h2>
-            <TimeSlots slots={slots} onSelect={handleSlotClick} />
+            <TimeSlots 
+              slots={slots} 
+              onSelect={handleSlotClick}
+              bookedSlots={bookedSlots}
+              selectedDate={selectedDay}
+            />
           </div>
         </section>
 
